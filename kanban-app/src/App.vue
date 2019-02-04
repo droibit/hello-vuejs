@@ -1,6 +1,6 @@
 <template>
   <ErrorBoundary id="app">
-    <router-view />
+    <router-view/>
   </ErrorBoundary>
 </template>
 
@@ -11,5 +11,8 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
 }
 </style>

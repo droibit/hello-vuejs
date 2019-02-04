@@ -12,28 +12,54 @@ export default {
       });
   },
 
-  fetchLists: ({ commit }) => {
-    // TODO:
-    throw new Error("Not implemented yet.");
+  fetchLists: ({ commit, state }) => {
+    return List.fetch(state.auth.token)
+      .then(({ lists }) => {
+        commit(types.FETCH_ALL_TASKLIST, lists);
+      })
+      .catch(err => {
+        throw err;
+      });
   },
 
-  addTask: ({ commit }) => {
-    // TODO:
-    throw new Error("Not implemented yet.");
+  addTask: ({ commit, state }, { listId, name }) => {
+    return Task.add(state.auth.token, { listId, name })
+      .then(task => {
+        commit(types.ADD_TASK, task);
+      })
+      .catch(err => {
+        throw err;
+      });
   },
 
-  updataTask: ({ commit }) => {
-    // TODO:
-    throw new Error("Not implemented yet.");
+  updateTask: ({ commit, state }, task) => {
+    return Task.update(state.auth.token, task)
+      .then(() => {
+        commit(types.UPDATE_TASK, task);
+      })
+      .catch(err => {
+        throw err;
+      });
   },
 
-  remoteTask: ({ commit }) => {
-    // TODO:
-    throw new Error("Not implemented yet.");
+  removeTask: ({ commit, state }, { id, listId }) => {
+    return Task.remove(state.auth.token, { id, listId })
+      .then(() => {
+        commit(types.REMOVE_TASK, { id, listId });
+      })
+      .catch(err => {
+        throw err;
+      });
   },
 
-  logout: ({ commit }) => {
-    // TODO:
-    throw new Error("Not implemented yet.");
+  logout: ({ commit, state }) => {
+    return Auth.logout(state.auth.token)
+      .then(() => {
+        localStorage.removeItem("token");
+        commit(types.AUTH_LOGOUT, { token: null, userId: null });
+      })
+      .catch(err => {
+        throw err;
+      });
   }
 };
