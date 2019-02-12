@@ -14,9 +14,13 @@ export default {
     LoginForm
   },
   methods: {
-    async onLogin({ email, password }) {
+    async onLogin({ email, password, rememberMe }) {
       console.log(`email: ${email}, password: ${password}`);
-      await this.$store.dispatch("login/login", { email, password });
+      await this.$store.dispatch("login/login", {
+        email,
+        password,
+        rememberMe
+      });
       this.$router.push("/");
     }
   }
@@ -29,4 +33,3 @@ export default {
   margin: auto;
 }
 </style>
-

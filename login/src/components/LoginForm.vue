@@ -30,6 +30,10 @@
       </ul>
     </div>
     <div class="form-actions">
+      <div>
+        <input type="checkbox" id="remember-me" v-model="rememberMe">
+        <label for="remember-me">ログイン状態を保持する</label>
+      </div>
       <button
         :disabled="disabledLoginButton"
         @click.stop.prevent="onLoginButtonClick"
@@ -59,7 +63,8 @@ export default {
       email: "",
       password: "",
       progress: false,
-      error: ""
+      error: "",
+      rememberMe: false
     };
   },
   computed: {
@@ -110,7 +115,8 @@ export default {
         try {
           await this.onLogin({
             email: this.email,
-            password: this.password
+            password: this.password,
+            rememberMe: this.rememberMe
           });
         } catch (err) {
           console.log(err);
